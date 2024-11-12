@@ -15,7 +15,7 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entryPoints.websecure.address=:443"
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      - "--certificatesresolvers.myresolver.acme.email=elliott@zenful.yt"
+      - "--certificatesresolvers.myresolver.acme.email=elliott@zenful.site"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
@@ -31,7 +31,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.web-ratelimit.ratelimit.average=20"
-      - "traefik.http.routers.web.rule=Host(`zenful.yt`)"
+      - "traefik.http.routers.web.rule=Host(`zenful.site`)"
       - "traefik.http.routers.web.entrypoints=websecure"
       - "traefik.http.routers.web.tls.certresolver=myresolver"
       - "traefik.http.routers.web.middlewares=web-ratelimit"
