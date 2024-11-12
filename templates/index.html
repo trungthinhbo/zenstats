@@ -1,0 +1,44 @@
+{{template "layout.html" .}}
+
+{{define "title"}}Zenful Stats{{end}}
+
+{{define "content"}}
+<div class="bg-black text-white font-light font-[Montserrat]">
+    <div class="max-w-4xl mx-auto min-h-screen max-h-full px-8 py-4 flex flex-col justify-evenly">
+        <div>
+        <h1 class="text-4xl mb-8 text-center">Zenful Stats</h1>
+        <div>
+            <p class="text-xl italic text-center text-gray-400 mb-2">"{{.Quote.Quote}}"</p>
+            <p class="text-sm text-center text-gray-400 mb-8">"{{.Quote.Author}}"</p>
+        </div>
+        </div>
+        <div class="flex justify-center space-x-12">
+            <div>
+                <h2 class="text-xl mb-4">Total Page Hits</h2>
+                <p class="mb-8 font-bold text-3xl">{{.TotalHits}}</p>
+            </div>
+            <hr class="border-gray-700 my-6">
+            <div>
+                <h2 class="text-2xl mb-4">Visitors</h2>
+                <ul class="mb-8 space-y-2">
+                    <li>Last Hour: {{.Visitors.LastHour}}</li>
+                    <li>Last Day: {{.Visitors.LastDay}}</li>
+                    <li>Last Week: {{.Visitors.LastWeek}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center font-light">
+            <p class="text-sm text-gray-500">Current Server Time: <span id="time">00:00:00</span></p>
+        </div>
+    </div>
+</div>
+<script>
+    function updateTime() {
+        const timeElement = document.getElementById('time');
+        const now = new Date();
+        timeElement.textContent = now.toLocaleString('en-US', { hour12: false });
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+</script>
+{{end}}
