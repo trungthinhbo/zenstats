@@ -39,6 +39,7 @@ RUN --mount=type=bind,source=static/css/input.css,target=static/css/input.css \
     --mount=type=bind,source=main.go,target=main.go \
     --mount=type=bind,source=go.sum,target=go.sum \
     --mount=type=bind,source=go.mod,target=go.mod \
+    --mount=type=bind,source=./templates,target=./templates \
     --mount=type=cache,target=static/css/ \
     go generate
 
