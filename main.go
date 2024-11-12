@@ -8,7 +8,7 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/dreamsofcode-io/zenfulstats/internal/app"
+	"github.com/dreamsofcode-io/zenstats/internal/app"
 )
 
 //go:embed templates/*.html static

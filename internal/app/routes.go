@@ -6,8 +6,8 @@ import (
 	"io/fs"
 	"net/http"
 
-	"github.com/dreamsofcode-io/zenfulstats/internal/handler"
-	"github.com/dreamsofcode-io/zenfulstats/internal/middleware"
+	"github.com/dreamsofcode-io/zenstats/internal/handler"
+	"github.com/dreamsofcode-io/zenstats/internal/middleware"
 )
 
 const index = "GET /{$}"

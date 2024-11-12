@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/dreamsofcode-io/zenfulstats/internal/quote"
+	"github.com/dreamsofcode-io/zenstats/internal/quote"
 )
 
 // App contains all of the application dependencies for the project.

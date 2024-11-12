@@ -5,7 +5,7 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/dreamsofcode-io/zenfulstats/internal/quote"
+	"github.com/dreamsofcode-io/zenstats/internal/quote"
 )
 
 func Page(tmpl *template.Template, name string) http.HandlerFunc {

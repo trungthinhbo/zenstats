@@ -27,7 +27,7 @@ services:
       - letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
   web:
-    image: ghcr.io/dreamsofcode-io/zenfulstats:latest
+    image: ghcr.io/dreamsofcode-io/zenstats:latest
     labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.web-ratelimit.ratelimit.average=20"
