@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"strconv"
-	"strings"
 )
 
 // Database holds the configuration data for setting up a connection to a
@@ -27,7 +26,7 @@ func NewDatabase() (*Database, error) {
 		return nil, fmt.Errorf("no POSTGRES_USER env variable set")
 	}
 
-	password, err := os.LookupEnv("POSTGRES_PASSWORD")
+	password, ok := os.LookupEnv("POSTGRES_PASSWORD")
 	if !ok {
 		return nil, fmt.Errorf("no POSTGRES_PASSWORD env variable set")
 	}
