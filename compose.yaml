@@ -1,7 +1,7 @@
 services:
 
   web:
-    image: ghcr.io/dreamsofcode-io/zenstats:latest
+    image: ghcr.io/dreamsofcode-io/zenstats:cc5d97c1d8abc3c63862ca699156cca8ab062c29
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_PASSWORD=mysecretpassword
