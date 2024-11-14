@@ -9,12 +9,15 @@ import (
 	"os/signal"
 
 	"github.com/dreamsofcode-io/zenstats/internal/app"
+	"github.com/joho/godotenv"
 )
 
-//go:embed templates/*.html static
+//go:embed templates/*.html static migrations/*.sql
 var files embed.FS
 
 func main() {
+	godotenv.Load()
+
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer cancel()

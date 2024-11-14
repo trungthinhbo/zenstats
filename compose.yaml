@@ -10,7 +10,10 @@ services:
       - POSTGRES_PORT=5432
       - POSTGRES_SSLMODE=disable
     ports:
-      - "80:8080"
+      - mode: "host"
+        protocol: "tcp"
+        published: 80
+        target: 8080
     depends_on:
       - db
 

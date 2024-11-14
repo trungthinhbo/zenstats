@@ -8,14 +8,16 @@ import (
 
 	"github.com/dreamsofcode-io/zenstats/internal/handler"
 	"github.com/dreamsofcode-io/zenstats/internal/middleware"
+	"github.com/dreamsofcode-io/zenstats/internal/repository"
 )
 
 const index = "GET /{$}"
 
 // TODO - This function is where your pages are loaded.
 func (a *App) loadPages(router *http.ServeMux, tmpl *template.Template) {
+	repo := repository.New(a.db)
 
-	h := handler.NewIndex(a.logger, a.quotes, tmpl)
+	h := handler.NewIndex(a.logger, a.quotes, tmpl, repo)
 
 	// This is your index route, i.e. /. It has an odd syntax in
 	// the go serve mux
