@@ -11,13 +11,11 @@ services:
       - POSTGRES_SSLMODE=disable
     ports:
       - "80:8080"
-    restart: always
     depends_on:
       - db
 
   db:
     image: postgres
-    restart: always
     user: postgres
     volumes:
       - db-data:/var/lib/postgresql/data
