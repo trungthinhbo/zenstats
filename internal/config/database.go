@@ -68,7 +68,7 @@ func NewDatabase() (*Database, error) {
 
 	dbname, ok := os.LookupEnv("POSTGRES_DB")
 	if !ok {
-		return nil, fmt.Errorf("no POSTGRES_DATABASE env variable set")
+		return nil, fmt.Errorf("no POSTGRES_DB env variable set")
 	}
 
 	sslmode, ok := os.LookupEnv("POSTGRES_SSLMODE")

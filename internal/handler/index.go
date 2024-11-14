@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"html/template"
 	"log/slog"
 	"net/http"
@@ -73,7 +72,6 @@ func getIP(r *http.Request, steps int) string {
 
 func (h *Index) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	ip := getIP(r, 0)
-	fmt.Println(ip)
 
 	ctx := r.Context()
 
@@ -85,28 +83,28 @@ func (h *Index) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	total, err := h.repo.CountAllVisits(ctx)
 	if err != nil {
-		h.logger.Error("failed to get total visits", err)
+		h.logger.Error("failed to get total visits", slog.Any("error", err))
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
 	hour, err := h.repo.CountVisitors(ctx, time.Now().Add(-time.Hour))
 	if err != nil {
-		h.logger.Error("failed to get hour visits", err)
+		h.logger.Error("failed to get hour visits", slog.Any("error", err))
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
 	day, err := h.repo.CountVisitors(ctx, time.Now().Add(-time.Hour*24))
 	if err != nil {
-		h.logger.Error("failed to get day visits", err)
+		h.logger.Error("failed to get day visits", slog.Any("error", err))
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
 	week, err := h.repo.CountVisitors(ctx, time.Now().Add(-time.Hour*24*7))
 	if err != nil {
-		h.logger.Error("failed to get week visits", err)
+		h.logger.Error("failed to get week visits", slog.Any("error", err))
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

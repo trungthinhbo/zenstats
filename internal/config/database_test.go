@@ -12,15 +12,16 @@ import (
 
 func TestCreatingNewValidation(t *testing.T) {
 	envs := []string{
-		"PGUSER", "PGPASSWORD", "PGPORT", "PGDATABASE", "PGHOST",
+		"POSTGRES_USER", "POSTGRES_PASSWORD", "POSTGRES_PORT", "POSTGRES_DB", "POSTGRES_HOST", "POSTGRES_SSLMODE",
 	}
 
 	fullSetup := func() {
-		os.Setenv("PGUSER", "user")
-		os.Setenv("PGPASSWORD", "password")
-		os.Setenv("PGPORT", "5432")
-		os.Setenv("PGDATABASE", "database")
-		os.Setenv("PGHOST", "database.com")
+		os.Setenv("POSTGRES_USER", "user")
+		os.Setenv("POSTGRES_PASSWORD", "password")
+		os.Setenv("POSTGRES_PORT", "5432")
+		os.Setenv("POSTGRES_DB", "database")
+		os.Setenv("POSTGRES_HOST", "database.com")
+		os.Setenv("POSTGRES_SSLMODE", "disable")
 	}
 
 	clear := func() {
@@ -46,6 +47,7 @@ func TestCreatingNewValidation(t *testing.T) {
 				Port:     5432,
 				Host:     "database.com",
 				DBName:   "database",
+				SSLMode:  "disable",
 			},
 		},
 		{
@@ -53,53 +55,55 @@ func TestCreatingNewValidation(t *testing.T) {
 			Setup: func() {
 				clear()
 			},
-			ExpectedErr: fmt.Errorf("no PGUSER env variable set"),
+			ExpectedErr: fmt.Errorf("no POSTGRES_USER env variable set"),
 		},
 		{
 			Description: "no pg user",
 			Setup: func() {
 				fullSetup()
-				os.Unsetenv("PGUSER")
+				os.Unsetenv("POSTGRES_USER")
 			},
-			ExpectedErr: fmt.Errorf("no PGUSER env variable set"),
+			ExpectedErr: fmt.Errorf("no POSTGRES_USER env variable set"),
 		},
 		{
 			Description: "no pg password",
 			Setup: func() {
 				fullSetup()
-				os.Unsetenv("PGPASSWORD")
+				os.Unsetenv("POSTGRES_PASSWORD")
 			},
-			ExpectedErr: fmt.Errorf("no PGPASSWORD env variable set"),
+			ExpectedErr: fmt.Errorf(
+				"loading password: no POSTGRES_PASSWORD or POSTGRES_PASSWORD_FILE env var set",
+			),
 		},
 		{
 			Description: "no pg host",
 			Setup: func() {
 				fullSetup()
-				os.Unsetenv("PGHOST")
+				os.Unsetenv("POSTGRES_HOST")
 			},
-			ExpectedErr: fmt.Errorf("no PGHOST env variable set"),
+			ExpectedErr: fmt.Errorf("no POSTGRES_HOST env variable set"),
 		},
 		{
 			Description: "no pg port",
 			Setup: func() {
 				fullSetup()
-				os.Unsetenv("PGPORT")
+				os.Unsetenv("POSTGRES_PORT")
 			},
-			ExpectedErr: fmt.Errorf("no PGPORT env variable set"),
+			ExpectedErr: fmt.Errorf("no POSTGRES_PORT env variable set"),
 		},
 		{
 			Description: "no pg database",
 			Setup: func() {
 				fullSetup()
-				os.Unsetenv("PGDATABASE")
+				os.Unsetenv("POSTGRES_DB")
 			},
-			ExpectedErr: fmt.Errorf("no PGDATABASE env variable set"),
+			ExpectedErr: fmt.Errorf("no POSTGRES_DB env variable set"),
 		},
 		{
 			Description: "invalid port setup",
 			Setup: func() {
 				fullSetup()
-				os.Setenv("PGPORT", "helloworld")
+				os.Setenv("POSTGRES_PORT", "helloworld")
 			},
 			ExpectedErr: fmt.Errorf(
 				"failed to convert port to int: strconv.Atoi: parsing \"helloworld\": invalid syntax",
@@ -109,7 +113,7 @@ func TestCreatingNewValidation(t *testing.T) {
 			Description: "empty db name",
 			Setup: func() {
 				fullSetup()
-				os.Setenv("PGDATABASE", "")
+				os.Setenv("POSTGRES_DB", "")
 			},
 			ExpectedErr: fmt.Errorf(
 				"failed to validate config: invalid database name",
@@ -142,6 +146,7 @@ func TestConfigValidation(t *testing.T) {
 		Host:     "pghost",
 		Port:     5432,
 		DBName:   "pgdatabase",
+		SSLMode:  "disable",
 	}
 
 	t.Run("Test valid", func(t *testing.T) {
