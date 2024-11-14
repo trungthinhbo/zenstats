@@ -41,6 +41,6 @@ jobs:
         with:
           context: .
           push: true
-          tags:
-            - "ghcr.io/dreamsofcode-io/zenstats:latest"
-            - "ghcr.io/dreamsofcode-io/zenstats:${{ github.sha }}"
+          tags: |
+            ghcr.io/dreamsofcode-io/zenstats:latest
+            ghcr.io/dreamsofcode-io/zenstats:${{ github.sha }}
