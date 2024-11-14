@@ -72,7 +72,7 @@ func TestCreatingNewValidation(t *testing.T) {
 				os.Unsetenv("POSTGRES_PASSWORD")
 			},
 			ExpectedErr: fmt.Errorf(
-				"loading password: no POSTGRES_PASSWORD or POSTGRES_PASSWORD_FILE env var set",
+				"no POSTGRES_PASSWORD env variable set",
 			),
 		},
 		{

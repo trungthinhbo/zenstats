@@ -18,25 +18,6 @@ type Database struct {
 	SSLMode  string
 }
 
-func loadPassword() (string, error) {
-	password, ok := os.LookupEnv("POSTGRES_PASSWORD")
-	if ok {
-		return password, nil
-	}
-
-	passwordFile, ok := os.LookupEnv("POSTGRES_PASSWORD_FILE")
-	if !ok {
-		return "", fmt.Errorf("no POSTGRES_PASSWORD or POSTGRES_PASSWORD_FILE env var set")
-	}
-
-	data, err := os.ReadFile(passwordFile)
-	if err != nil {
-		return "", fmt.Errorf("failed to read from password file: %w", err)
-	}
-
-	return strings.TrimSpace(string(data)), nil
-}
-
 // NewDatabase creates a database configuration based on the environment
 // variables required. If any env variables are not set or are invalid then
 // this method will throw an error.
@@ -46,9 +27,9 @@ func NewDatabase() (*Database, error) {
 		return nil, fmt.Errorf("no POSTGRES_USER env variable set")
 	}
 
-	password, err := loadPassword()
-	if err != nil {
-		return nil, fmt.Errorf("loading password: %w", err)
+	password, err := os.LookupEnv("POSTGRES_PASSWORD")
+	if !ok {
+		return nil, fmt.Errorf("no POSTGRES_PASSWORD env variable set")
 	}
 
 	host, ok := os.LookupEnv("POSTGRES_HOST")
