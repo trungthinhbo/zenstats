@@ -32,8 +32,6 @@ func logging(logger *slog.Logger, next http.Handler) http.Handler {
 			slog.String("path", r.URL.Path),
 			slog.Int64("duration_ns", duration.Nanoseconds()),
 			slog.Int("status", wrapped.statusCode),
-			slog.String("remote_addr", r.RemoteAddr),
-			slog.String("x-forwarded-for", r.Header.Get("X-Forwarded-For")),
 		)
 	})
 }
