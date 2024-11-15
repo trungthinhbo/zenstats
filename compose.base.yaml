@@ -1,0 +1,44 @@
+services:
+
+  web:
+    image: ghcr.io/dreamsofcode-io/zenstats:875adc865b0c65c5761e7e75c5cbd34722866861
+    secrets:
+      - db-password
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=app
+      - POSTGRES_PORT=5432
+      - POSTGRES_SSLMODE=disable
+    ports:
+      - "80:8080"
+    deploy:
+      update_config:
+        order: start-first
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    user: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    secrets:
+      - db-password
+    environment:
+      - POSTGRES_DB=app
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db-data:
+  letsencrypt:
+
+secrets:
+  db-password:
+    external: true
