@@ -34,7 +34,7 @@ ssh-copy-id -i ~/.ssh/id_ed25519.pub newuser@your-server-ip
 ssh newuser@your-server-ip
 ```
 
-## 2. Harden SSH
+## 3. Harden SSH
 
 ```
 # Open SSH configuration file
@@ -51,7 +51,7 @@ sudo systemctl restart ssh
 ssh newuser@your-server-ip
 ```
 
-## 3. Set Up a Firewall (UFW)
+## 4. Set Up a Firewall (UFW)
 ```
 # Install UFW if not already installed
 sudo apt install ufw
@@ -68,7 +68,7 @@ sudo ufw enable
 sudo ufw status
 ```
 
-## 4. (Optional) Install and Configure Fail2Ban
+## 5. (Optional) Install and Configure Fail2Ban
 
 ```
 # Install Fail2Ban
