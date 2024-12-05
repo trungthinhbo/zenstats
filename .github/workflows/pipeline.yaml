@@ -42,8 +42,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/dreamsofcode-io/zenstats:latest
-            ghcr.io/dreamsofcode-io/zenstats:${{ github.sha }}
+            ghcr.io/trungthinhbo/zenstats:latest
+            ghcr.io/trungthinhbo/zenstats:${{ github.sha }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -62,7 +62,7 @@ jobs:
       with:
         name: zenfulstats
         file: docker-stack.yaml
-        host: zenful.site
+        host: raz.io.vn
         user: deploy
         ssh_key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
         env_file: ./envfile
