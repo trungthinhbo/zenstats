@@ -12,13 +12,6 @@ services:
       - "--entrypoints.web.address=:80"
       - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
       - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.traefik.rule=Host(`raz.io.vn`)"
-      - "traefik.http.routers.traefik.entrypoints=websecure"
-      - "traefik.http.routers.traefik.service=api@internal"
-      - "traefik.http.routers.traefik.tls.certresolver=myresolver"
-      - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$6hG6r7Nf$$7E/WVZuxxEgRM5dTBlQYQ1"
     ports:
       - mode: host
         protocol: tcp
