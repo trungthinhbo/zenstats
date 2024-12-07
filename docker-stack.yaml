@@ -18,7 +18,7 @@ services:
       - "traefik.http.routers.httpsonly.middlewares=httpsonly"
       - "traefik.http.routers.dashboard.rule=Host(`raz.io.vn`)"
       - "traefik.http.routers.dashboard.service=dashboard@internal"
-      - "traefik.http.routers.api.rule=Host(`traefik.example.com`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.api.rule=Host(`raz.io.vn`) && PathPrefix(`/api`)"
       - "traefik.http.routers.api.service=api@internal"
       - "traefik.http.routers.dashboard.tls=true"
       - "traefik.http.routers.dashboard.tls.certresolver=myresolver"
